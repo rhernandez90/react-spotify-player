@@ -1,0 +1,60 @@
+/** Now Playing **/
+.play-bar {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 13vh;
+    text-align: center;
+}
+
+.play-card {
+
+    width: 50vh;
+    margin: auto;
+
+    img {
+        float: left;
+        width: 20%;
+    }
+
+
+    .play-card-text {
+        float: left;
+        text-align: left;
+        width: 80%;
+        display: block;
+    }
+}
+
+
+.now-playing__name {
+    
+    font-size: 0.6em;
+    margin-left: 10px;
+}
+
+.now-playing__artist {
+    margin-bottom: 15px;
+    margin-left: 10px;
+}
+
+.now-playing__status {
+    margin-bottom: 8px;
+    margin-left: 10px;
+}
+
+
+
+.progress {
+    border: 1px solid #eee;
+    height: 6px;
+    border-radius: 3px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.progress__bar {
+    
+    background-color: #eee;
+    height: 4px;
+}
