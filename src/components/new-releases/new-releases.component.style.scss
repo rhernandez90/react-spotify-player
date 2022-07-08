@@ -1,0 +1,52 @@
+.new-releases {
+    // border: 1px black solid;
+    float: left;
+    height: 20vh;
+    margin-left: 0.5%;
+    width: 75%;
+
+    padding-top: 5px;
+    
+}
+
+
+.new-release-card {
+
+    float: left;
+    // border: 1px black solid;
+    width: 17vh;
+    max-height: 20vh;
+    margin-left: 15px;
+
+    img {
+        width: 18vh;
+        height: 13vh;
+    }
+
+    :hover {
+        opacity: 0.6;
+    }
+
+    .new-releases-tittles {
+        display: grid;
+        text-align: center;
+        font-size: 0.4em;
+    }
+
+    .plus-icon {
+        position: absolute;
+        float: left;
+        margin-left: 7.5vh;
+        margin-top: 5vh;
+        background-color: rgba(0, 0, 0, 0.5);
+        // border: 0.3px solid gray;
+        
+    }
+}
+
+
+
+.title-releases{
+    text-align: left;
+    margin-left: 10px!important;
+}

@@ -32,6 +32,35 @@ export const searchSongs = async (songName) =>{
     
 }
 
+export const getNewReleases = async (songName) =>{
+
+    const response = await fetch(`${spotifyUri}/browse/new-releases?limit=8`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    })
+    const songsData = await response.json();
+    if (songsData.albums) {
+        
+        const songs = songsData.albums.items.map(x => {
+            return {
+                songName: x.name,
+                releaseDate: x.release_date,
+                singer: x.artists[0].name,
+                singerId: x.artists[0].id,
+                songId: x.id,
+                image: x.images[0].url
+            }
+        });
+        return songs;
+    }
+    return [];
+
+}
+
 
 export const getLikedSongs = async () => {
     const response = await fetch(`${spotifyUri}/me/tracks?limit=50`, {

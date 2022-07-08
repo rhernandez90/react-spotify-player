@@ -68,12 +68,6 @@ class App extends Component {
           <DataProvider>
             <TopBar token={this.state.token} />
             <SearchMusicListComponent token={this.state.token} />
-            <Player
-              item={this.state.item}
-              is_playing={this.state.is_playing}
-              progress_ms={this.state.progress_ms}
-              no_data={this.state.no_data}
-            />
           </DataProvider>
         )}
 
