@@ -3,6 +3,7 @@ import './top-bar.style.scss';
 import { DataContext } from "../../context/DataContext";
 import { spotifyUri } from "../../config.js";
 import { searchSongs } from '../../service/spotify.service';
+import { Outlet, Link } from 'react-router-dom'
 
 
 const TopBar = ({ token }) => {
@@ -54,7 +55,11 @@ const TopBar = ({ token }) => {
             <div className="top-bar-box2">
                 <input className="search-bar" type="text" placeholder="Search" onKeyDown={searchHandler} />
             </div>
-            <div className="top-bar-box3"></div>
+            <div className="top-bar-box3">
+                <Link className='nav-link' to='/shop'>
+                    SHOP
+                </Link>
+            </div>
         </div>
     )
 
