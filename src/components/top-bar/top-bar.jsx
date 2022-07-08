@@ -56,8 +56,8 @@ const TopBar = ({ token }) => {
                 <input className="search-bar" type="text" placeholder="Search" onKeyDown={searchHandler} />
             </div>
             <div className="top-bar-box3">
-                <Link className='nav-link' to='/shop'>
-                    SHOP
+                <Link className='nav-link' to='my-library'>
+                    My Library
                 </Link>
             </div>
         </div>
