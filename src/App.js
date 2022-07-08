@@ -40,11 +40,10 @@ class App extends Component {
     let tokenStorage = null//window.localStorage.getItem("token")
     console.log(hash);
     if (tokenStorage === null){
-      _token = hash.access_token
-      
-      if (_token !== undefined  ) 
+      if (hash.access_token !== undefined  ) {
+        _token = hash.access_token
         window.localStorage.setItem("token", _token)
-
+      }
     }
     else
       _token = tokenStorage;
@@ -54,49 +53,12 @@ class App extends Component {
       this.setState({
         token: _token
       });
-      this.getCurrentlyPlaying(_token);
     }
-
-    this.interval = setInterval(() => this.tick(), 5000);
   }
 
   componentWillUnmount() {
-    clearInterval(this.interval);
   }
 
-  tick = () => {
-    if (this.state.token) {
-      this.getCurrentlyPlaying(this.state.token);
-    }
-  }
-
-
-  getCurrentlyPlaying = (token) => {
-
-    $.ajax({
-      url: `${spotifyUri}/me/player`,
-      type: "GET",
-      beforeSend: xhr => {
-        xhr.setRequestHeader("Authorization", "Bearer " + token);
-      },
-      success: data => {
-
-        if (!data) {
-          this.setState({
-            no_data: true,
-          });
-          return;
-        }
-
-        this.setState({
-          item: data.item,
-          is_playing: data.is_playing,
-          progress_ms: data.progress_ms,
-          no_data: false
-        });
-      }
-    });
-  }
 
   render() {
     return (

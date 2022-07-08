@@ -2,6 +2,8 @@ import React, { useContext, useState, useEffect } from "react";
 import { DataContext } from "../../context/DataContext";
 import './search-music-result.style.scss'
 import { spotifyUri } from "../../config.js";
+import { FaHeart } from 'react-icons/fa';
+import { getLikedSongs } from '../../service/spotify.service';
 
 const SearchMusicListComponent = ({ token }) => {
 
@@ -9,34 +11,41 @@ const SearchMusicListComponent = ({ token }) => {
 
 
     useEffect(() => {
-        getLikedSongs();
+        GetLikedSongs()
     }, [])
 
-    const getLikedSongs = async (songName) => {
-        const response = await fetch(`${spotifyUri}/me/tracks?limit=50`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        })
-        const songsData = await response.json();
-        if (songsData.items) {
-            const songs = songsData.items.map(x => {
-                return {
-                    songName: x.track.name,
-                    duration: x.track.duration_ms,
-                    singer: x.track.artists[0].name,
-                    singerId: x.track.artists[0].id,
-                    songId: x.track.id,
-                    albun: x.track.album.name,
-                    albunImage: x.track.album.images[0].url
-                }
-            });
-            setLikedMusic(songs)
-        }
+
+    const GetLikedSongs = async () => {
+        const songs = await getLikedSongs();
+        setLikedMusic(songs);
     }
+
+
+    // const getLikedSongs = async (songName) => {
+    //     const response = await fetch(`${spotifyUri}/me/tracks?limit=50`, {
+    //         method: 'GET',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'Accept': 'application/json',
+    //             'Authorization': `Bearer ${token}`
+    //         }
+    //     })
+    //     const songsData = await response.json();
+    //     if (songsData.items) {
+    //         const songs = songsData.items.map(x => {
+    //             return {
+    //                 songName: x.track.name,
+    //                 duration: x.track.duration_ms,
+    //                 singer: x.track.artists[0].name,
+    //                 singerId: x.track.artists[0].id,
+    //                 songId: x.track.id,
+    //                 albun: x.track.album.name,
+    //                 albunImage: x.track.album.images[0].url
+    //             }
+    //         });
+    //         setLikedMusic(songs)
+    //     }
+    // }
 
 
     const musicCards = musicList.map(x => {
@@ -55,6 +64,9 @@ const SearchMusicListComponent = ({ token }) => {
                 </div>
                 <div className="duration">
                     <strong>{duration.toFixed(2)}</strong>
+                </div>
+                <div className="duration">
+                    <span><FaHeart /></span>
                 </div>
                 <hr className="split-line"></hr>
 

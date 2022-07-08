@@ -2,6 +2,8 @@ import React, { useContext, useEffect } from "react"
 import './top-bar.style.scss';
 import { DataContext } from "../../context/DataContext";
 import { spotifyUri } from "../../config.js";
+import { searchSongs } from '../../service/spotify.service';
+
 
 const TopBar = ({ token }) => {
 
@@ -10,7 +12,7 @@ const TopBar = ({ token }) => {
     useEffect(() => {
         const lastSongSearched = window.localStorage.getItem('lastSongSearched')
         if (lastSongSearched !== undefined) {
-            findSongs(lastSongSearched);
+            findSongs(lastSongSearched)
         }
         getUserData();
     }, [])
@@ -21,35 +23,13 @@ const TopBar = ({ token }) => {
             const songName = event.target.value;
             window.localStorage.setItem('lastSongSearched', songName);
             findSongs(songName);
-            
         }
     }
 
 
     const findSongs = async (songName) => {
-        const response = await fetch(`${spotifyUri}/search?q=${songName}&type=track&limit=30`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Accept': 'application/json',
-                'Authorization': `Bearer ${token}`
-            }
-        })
-        const songsData = await response.json();
-        if (songsData.tracks) {
-            const songs = songsData.tracks.items.map(x => {
-                return {
-                    songName: x.name,
-                    duration: x.duration_ms,
-                    singer: x.artists[0].name,
-                    singerId: x.artists[0].id,
-                    songId : x.id,
-                    albun: x.album.name,
-                    albunImage: x.album.images[0].url
-                }
-            });
-            setMusicList(songs)
-        }
+        const songs = await searchSongs(songName);
+        setMusicList(songs)
     }
 
 
